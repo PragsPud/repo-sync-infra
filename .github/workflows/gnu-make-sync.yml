@@ -1,0 +1,19 @@
+name: Sync GNU Make Mirror
+
+on:
+  schedule:
+    - cron: '15 4 * * *' # Runs daily at 4:15 AM UTC
+  workflow_dispatch: # Lets you run it manually via the Actions tab
+
+jobs:
+  mirror-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync Savannah to GitHub
+        run: |
+          # 1. Bare clone the official upstream GNU Make repository from Savannah
+          git clone --mirror https://git.savannah.gnu.org/git/make.git upstream
+          cd upstream
+          
+          # 2. Force push the entire mirror state to your dedicated target repo
+          git push --mirror https://x-access-token:${{ secrets.MAKE_SYNC_PAT }}@github.com/${{ github.repository_owner }}/make-git-mirror.git
