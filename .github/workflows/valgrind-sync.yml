@@ -12,4 +12,4 @@ jobs:
         run: |
           git clone --mirror https://sourceware.org/git/valgrind.git upstream
           cd upstream
-          git push --mirror https://x-access-token:${{ secrets.MIRROR_SYNC_PAT }}@github.com/${{ github.repository_owner }}/valgrind.git
+          git push --mirror https://x-access-token:${{ secrets.MIRROR_SYNC_PAT }}@github.com/${{ github.repository_owner }}/valgrind-git-mirror.git
